@@ -1,0 +1,17 @@
+{
+  "env": {
+    "targets": {
+      "node": 17
+    }
+  },
+  "jsc": {
+    "parser": {
+      "syntax": "typescript"
+    }
+  },
+  "module": {
+    "type": "commonjs"
+  },
+  // This allows to have a better debugging since you can have vscode and docker server in the same place
+  "sourceMaps": "inline"
+}
