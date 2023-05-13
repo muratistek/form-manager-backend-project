@@ -1,0 +1,17 @@
+{
+  "name": "backend-project-form-manager",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "volta": {
+    "node": "17.3.0",
+    "yarn": "1.22.19"
+  },
+  "dependencies": {
+    "@types/node": "^20.1.4",
+    "typescript": "4.5.4"
+  },
+  "devDependencies": {
+    "@tsconfig/node16": "^1.0.4"
+  }
+}
