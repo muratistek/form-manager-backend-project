@@ -1,30 +1,11 @@
-import { PrismaClient } from '@prisma/client'
+import { ApolloServer } from 'apollo-server-express'
 import express from 'express'
 import morgan from 'morgan'
-import { nanoid } from 'nanoid'
-
-const db = new PrismaClient({ log: ['error', 'info', 'query', 'warn'] })
-const generateID = () => nanoid(16)
-
-const seedDB = async () => {
-  if ((await db.formEntry.count()) === 0) {
-    // Make sure to use "await" below to wait for the prisma promise to complete the fetch
-    await db.formEntry.createMany({
-      data: [
-        {
-          id: generateID(),
-          publishedAt: new Date(),
-          formData: {
-            name: "Murat Istek",
-            twitter: 'murat'
-          }
-        },
-      ]
-    })
-  }
-}
-
-seedDB();
+import http from 'http'
+import { ApolloServerPluginDrainHttpServer, ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core'
+import schema from './graphql/schema'
+import resolvers from './graphql/resolvers'
+import db from './modules/db'
 
 const app = express()
 app.use(morgan('dev'))
@@ -34,9 +15,25 @@ app.get('/', async (req, res) => {
   res.json(formEntries)
 })
 
-const port = Number(process.env.PORT) || 8080
+const startApolloServer = async () => {
+  const httpServer = http.createServer(app);
+  const server = new ApolloServer({
+    typeDefs: schema,
+    resolvers: resolvers,
+    csrfPrevention: true,
+    cache: 'bounded',
+    plugins: [ApolloServerPluginDrainHttpServer({ httpServer }), ApolloServerPluginLandingPageLocalDefault({ embed: true })],
+  });
+  await server.start();
+  const port = Number(process.env.PORT) || 8080
+  server.applyMiddleware({ app });
+  await new Promise<void>((resolve) => httpServer.listen({ host: '0.0.0.0', port }, resolve));
+  console.log(`🚀 Server ready at http://localhost:${port}${server.graphqlPath}`);
+}
+
+startApolloServer();
 
 // In Docker, whenever you are attaching to a port in your server (express), always provide a second argument '0.0.0.0'
-app.listen(port, '0.0.0.0', () => {
-  console.log(`Server is running on http://localhost:${port}`)
-})
+// app.listen(port, '0.0.0.0', () => {
+//   console.log(`Server is running on http://localhost:${port}`)
+// })
