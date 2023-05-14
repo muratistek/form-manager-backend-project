@@ -1,0 +1,14 @@
+version: '2'
+
+services:
+  app-backend:
+    build: .
+    ports:
+      - 8000:8000 # mapping the port from a docker image to a localhost
+      - 9229:9229 # default debugging port
+    volumes:
+      - .:/usr/src/app # mapping to the "workdir" specified in the dockerfile
+      - /usr/src/app/node_modules # prevent the usage of node modules in docker with a localhost
+    command: yarn start:docker # overriding the start command that we have in the "dockerfile" (CMD) (to keep it production ready)
+    environment:
+      PORT: 8000 # setting the environment var
