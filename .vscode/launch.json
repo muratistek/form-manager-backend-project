@@ -1,0 +1,19 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "attach", // attach to something that is already running (without starting the new process)
+      "name": "Node (Docker)",
+      "protocol": "inspector", // in the 'start:docker'
+      "port": 9229, // as specified in the docker-compose
+      "restart": true, // reattach the debugger each time we save src files
+      "remoteRoot": "/usr/src/app", // needs to be the same as "WORKDIR" in the "Dockerfile" 
+      "sourceMaps": true, // as specified in the ".swcrc" file
+      "skipFiles": [
+        "/usr/src/app/node_modules/**/*.js",
+        "<node_internals>/**"
+      ]
+    }
+  ]
+}
