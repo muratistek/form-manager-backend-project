@@ -10,17 +10,15 @@ const seedDB = async () => {
   if ((await db.formEntry.count()) === 0) {
     // Make sure to use "await" below to wait for the prisma promise to complete the fetch
     await db.formEntry.createMany({
-      data: [{
-        id: generateID(),
-        slug: "form-manager",
-        title: "Form Manager Backend Project",
-        publishedAt: new Date()
-      },
-      {
-        id: generateID(),
-        slug: "test-post 1",
-        title: "Test Post 1",
-      }
+      data: [
+        {
+          id: generateID(),
+          publishedAt: new Date(),
+          formData: {
+            name: "Murat Istek",
+            twitter: 'murat'
+          }
+        },
       ]
     })
   }

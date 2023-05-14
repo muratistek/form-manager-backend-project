@@ -9,12 +9,14 @@
   },
   "scripts": {
     "build": "rimraf dist && swc ./src -d dist",
+    "build:prisma": "prisma generate && yarn rebuild:backend",
     "start": "node dist/index.js",
     "start:docker": "yarn build && node --inspect=0.0.0.0 dist/index.js",
     "rebuild:backend": "docker compose build app-backend && docker compose rm --stop app-backend && docker compose up -d app-backend",
     "db:console": "docker compose exec postgres-database psql -h localhost -U postgres -d form_manager_dev",
     "db:migrate": "knex migrate:latest",
-    "docker:db:migrate": "docker compose run app-backend yarn db:migrate"
+    "docker:db:migrate": "docker compose run app-backend yarn db:migrate",
+    "docker:db:migrate:undo": "docker compose run app-backend npx knex migrate:down"
   },
   "dependencies": {
     "@prisma/client": "4.1.1",
