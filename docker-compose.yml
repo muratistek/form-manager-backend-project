@@ -10,5 +10,16 @@ services:
       - .:/usr/src/app # mapping to the "workdir" specified in the dockerfile
       - /usr/src/app/node_modules # prevent the usage of node modules in docker with a localhost
     command: yarn start:docker # overriding the start command that we have in the "dockerfile" (CMD) (to keep it production ready)
+    depends_on:
+      - postgres-database # any time your run this service, make sure that postgres service below is running first
     environment:
+      DATABASE_URL: postgres://postgres@postgres-database/form_manager_dev
       PORT: 8000 # setting the environment var
+
+  postgres-database:
+    image: postgres:14-alpine
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_DB: form_manager_dev
+      POSTGRES_HOST_AUTH_METHOD: trust # when using the postgres with a docker running locally
