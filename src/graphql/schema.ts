@@ -8,6 +8,10 @@ const schema = gql`
     entries: [Entry!]!
   }
 
+  type Mutation {
+    queueEntryGeneration(count: Int): Boolean!
+  }
+
   type Entry {
     id: ID!
     publishedAt: DateTime!

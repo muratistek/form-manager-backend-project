@@ -1,6 +1,17 @@
 version: '2'
 
 services:
+  postgres-database:
+    image: postgres:14-alpine
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_DB: form_manager_dev
+      POSTGRES_HOST_AUTH_METHOD: trust # when using the postgres with a docker running locally
+
+  redis:
+    image: redis:6.2.5-alpine
+
   app-backend:
     build: .
     ports:
@@ -15,11 +26,4 @@ services:
     environment:
       DATABASE_URL: postgres://postgres@postgres-database/form_manager_dev
       PORT: 8000 # setting the environment var
-
-  postgres-database:
-    image: postgres:14-alpine
-    ports:
-      - 5432:5432
-    environment:
-      POSTGRES_DB: form_manager_dev
-      POSTGRES_HOST_AUTH_METHOD: trust # when using the postgres with a docker running locally
+      REDIS_HOST: redis # you can use the same host name as your service name

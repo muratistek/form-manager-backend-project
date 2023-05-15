@@ -3,7 +3,7 @@ import { nanoid } from 'nanoid'
 
 const db = new PrismaClient({ log: ['error', 'info', 'query', 'warn'] })
 
-const generateID = () => nanoid(16)
+export const generateID = () => nanoid(16)
 
 const seedDB = async () => {
   if ((await db.formEntry.count()) === 0) {
