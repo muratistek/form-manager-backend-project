@@ -15,7 +15,8 @@ const seedDB = async () => {
           publishedAt: new Date(),
           formData: {
             name: "Murat Istek",
-            twitter: 'murat'
+            email: 'murat@mail.com',
+            github: 'muratdev'
           }
         },
       ]
