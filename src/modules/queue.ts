@@ -18,10 +18,13 @@ const worker = new Worker(QUEUE_NAME, async (job) => {
     const entry = await ModuleGenerator.entry()
     console.log(entry)
   }
+  if (job.name === 'deleteFormData') {
+    await ModuleGenerator.clearForm()
+  }
+
 }, { connection });
 
-type JobName = 'generateEntries'
 
-export const enqueue = async (job: JobName, data?: any) => {
+export const enqueue = async (job: string, data?: any) => {
   await queue.add(job, data)
 }

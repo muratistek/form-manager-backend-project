@@ -23,6 +23,10 @@ const resolvers = {
         await enqueue('generateEntries');
       }))
       return true;
+    },
+    deleteFormData: async () => {
+      await enqueue('deleteFormData')
+      return true
     }
   }
 };

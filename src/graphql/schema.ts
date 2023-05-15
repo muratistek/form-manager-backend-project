@@ -10,6 +10,7 @@ const schema = gql`
 
   type Mutation {
     queueEntryGeneration(count: Int): Boolean!
+    deleteFormData: Boolean!
   }
 
   type Entry {
