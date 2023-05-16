@@ -45,7 +45,9 @@ and Apollo Server, but the main goal is having backend that runs in a specific w
 ### How to Install:
 1. Install Dependencies: `yarn install`
 2. Create and run docker container: `docker compose up`
-3. Navigate to the "client" folder: `cd client`
-4. Install Dependincies: `yarn install`
-5. Run React front-end app: `yarn start`
-6. Open the http://localhost:3000 address in a browser
+3. In a parallel terminal run: `yarn docker:db:migrate`
+4. Then run: `docker-compose start app-backend`. This should run GraphQL Apollo server from Docker at "http://localhost:8000/graphql"
+5. Navigate to the "client" folder: `cd client`
+6. Install Dependincies: `yarn install`
+7. Run React front-end app: `yarn start`
+8. Open the http://localhost:3000 address in a browser
