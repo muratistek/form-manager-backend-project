@@ -14,6 +14,8 @@ and Apollo Server, but the main goal is having backend that runs in a specific w
 6. Then, the Worker is executing a custom method that implements random data generator package and uses Prisma ORM to push generated data to PostgreSQL (running on the Docker container as a service)
 7. GraphQL returns data to the React front-end
 
+## Used Technologies:
+
 ### Front-End:
 - React
 - Material UI
