@@ -1,9 +1,11 @@
 # Form Manager (Backend Project)
 
 ## Description:
-This project aims to show how to handle specified technologies together, store and run backend (NodeJS) on the Docker container, improve DB efficiency by adding Redis layer that will cache PostgreSQL queries, 
+This project aims to show how to simulate multiple simultaneous form submissions, handle specified technologies together, store and run backend (NodeJS) on a Docker container, improve DB efficiency by adding Redis layer that will cache PostgreSQL queries, 
 incorporate Prisma ORM with PostgreSQL instance that runs on the Docker container, add multiple services to a Docker container using Docker Compose. Technically, this is a full-stack project since it has both front-end and back-end that is connected by GraphQL 
 and Apollo Server, but the main goal is having backend that runs in a specific way.
+
+**Warning**: This project runs on 4 separate free-tier services (Redis, PostgreSQL, backend, frontend). Due to the hosting plan limitation, it can take up to 40 seconds for a project to load.
 
 ## Application Flow
 1. From the front-end a user clicks "Generate Data Form" button
